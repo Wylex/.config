@@ -10,13 +10,17 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set noexpandtab
+"Configuración tabs según ficheros
+autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
+autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
+autocmd FileType haskell setlocal ts=4 sts=4 sw=4 noet
 
 "Buffer options ---------------------
 set hidden "Permitir cambiar buffer
 
 "Folding ----------------------------
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview 
+"autocmd BufWinLeave *.* mkview
+"autocmd BufWinEnter *.* silent loadview
 set foldmethod=manual
 
 "Random stuff -----------------------
@@ -31,10 +35,6 @@ set number
 set paste
 set listchars=tab:▸\ ,eol:¬
 set linebreak "No cortar palabras al cambiar de linea
-"Configuración tabs según ficheros
-autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
-autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
-autocmd FileType haskell setlocal ts=4 sts=4 sw=4 noet
 
 "Mappings ---------------------------
 nnoremap <silent> <C-l> :<C-l>nohlsearch<CR><C-l>| "Limpiar los highlights
@@ -58,8 +58,17 @@ endif
 autocmd FileType cpp setlocal keywordprg=cppman "Documentación C++ (K)
 
 "Plugins ----------------------------
+"Tabular
+"Gruvbox
 "Gundo
 nnoremap <F4> :GundoToggle<CR>
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "Cerrar vim si solo queda el arbol
+"Vim-Airline
+let g:airline_left_sep = '»'
+let g:airline_right_sep = '«'
+let g:airline_section_a = airline#section#create(['mode', '', ''])
+let g:airline_section_b = airline#section#create(['hunks', 'branch'])
+let g:airline_section_z = airline#section#create(['%p%%', ' c%c', ' BN: %{bufnr("%")}'])
+set laststatus=2
