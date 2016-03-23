@@ -1,12 +1,12 @@
 "Configuración del terminal:
 "Modificar el delay de repetición de teclas
 "Mapear la tecla Bloq Mayus por la ESC
-"Font 'Ubuntu Mono derivative Powerline Regular'
+"Font 'Ubuntu Mono derivative Powerline Regular' from: 'https://github.com/powerline/fonts.git'
 
-"Pathogen plugin manager
+"Pathogen plugin manager {{{1
 execute pathogen#infect()
 
-"Tabs options --------------------------------------------
+"Tabs options {{{1
 set ignorecase
 set tabstop=4
 set softtabstop=4
@@ -17,19 +17,19 @@ autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType haskell setlocal ts=4 sts=4 sw=4 noet
 
-"Buffer options ------------------------------------------
+"Buffer options {{{1
 set hidden "Permitir cambiar buffer
 
-"Folding -------------------------------------------------
+"Folding {{{1
 "autocmd BufWinLeave *.* mkview
 "autocmd BufWinEnter *.* silent loadview
-set foldmethod=manual
+set foldmethod=marker
 
-"Random stuff --------------------------------------------
+"Random stuff {{{1
 let mapleader=","
 set wildignore=*.o,*.out "Ignorar ciertos ficheros a la hora de autocompletar
 
-"Personalization -----------------------------------------
+"Personalization {{{1
 syntax enable
 colorscheme gruvbox
 set background=dark
@@ -39,7 +39,7 @@ set paste
 set listchars=tab:▸\ ,eol:¬
 set linebreak "No cortar palabras al cambiar de linea
 
-"Mappings ------------------------------------------------
+"Mappings {{{1
 nnoremap <silent> <C-l> :<C-l>nohlsearch<CR><C-l>| "Limpiar los highlights
 nnoremap <BS> <C-^>| "Edit alternate file
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>| "Remove espaces at the end of lines
@@ -54,13 +54,13 @@ vmap <C-Down> xp`[V`]
 map <C-tab> gT
 nnoremap <C-t> :tabnew<CR>
 
-"Commands -----------------------------------------------
+"Commands {{{1
 if has("autocmd")
 	autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 autocmd FileType cpp setlocal keywordprg=cppman "Documentación C++ (K)
 
-"Plugins -------------------------------------------------
+"Plugins {{{1
 "Tabular
 "Gruvbox
 "Gundo
@@ -72,6 +72,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 set laststatus=2
 let g:airline_section_a = airline#section#create(['mode', '', ''])
 let g:airline_section_z = airline#section#create(['%p%%', ' c%c', ' BN: %{bufnr("%")}'])
+let g:airline_section_y = airline#section#create(['%a'])
 let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
