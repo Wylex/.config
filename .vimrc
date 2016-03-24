@@ -16,7 +16,7 @@ set noexpandtab
 "Configuración tabs según ficheros
 autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
-autocmd FileType haskell setlocal ts=4 sts=4 sw=4 noet
+autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
 
 "Buffer options {{{1
 
@@ -25,6 +25,8 @@ set hidden "Permitir cambiar buffer
 "Folding {{{1
 
 set foldmethod=marker
+nnoremap <space> za
+noremap <leader>z zMzvzz
 
 "Random stuff {{{1
 
@@ -49,13 +51,13 @@ nnoremap <BS> <C-^>| "Edit alternate file
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>| "Remove espaces at the end of lines
 nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
 "Moving lines
-nmap <C-Up> ddkP
-nmap <C-Down> ddp
-vmap <C-Up> xkP`[V`]
-vmap <C-Down> xp`[V`]
+nnoremap <C-Up> ddkP
+nnoremap <C-Down> ddp
+vnoremap <C-Up> xkP`[V`]
+vnoremap <C-Down> xp`[V`]
 "Tabs
-""map <C-S-tab> gt
-map <C-tab> gT
+nnoremap <C-S-tab> gt
+nnoremap <C-tab> gT
 nnoremap <C-t> :tabnew<CR>
 
 "Commands {{{1
@@ -77,6 +79,8 @@ nnoremap * *N| "Don't move on *
 
 "Windows {{{1
 
+"Save session
+nnoremap <leader>s :mksession<CR>
 "Resize windows
 nnoremap <C-left> 5<C-w><
 nnoremap <C-right> 5<C-w>>
