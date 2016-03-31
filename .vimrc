@@ -18,6 +18,11 @@ autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
 
+"Tabs
+nnoremap <C-S-tab> gt
+nnoremap <C-tab> gT
+nnoremap <C-t> :tabnew<CR>
+
 "Buffer options {{{1
 
 set hidden "Permitir cambiar buffer
@@ -26,7 +31,7 @@ set hidden "Permitir cambiar buffer
 
 set foldmethod=marker
 nnoremap <space> za
-noremap <leader>z zMzvzz
+nnoremap <leader>z zMzvzz
 
 "Random stuff {{{1
 
@@ -34,6 +39,14 @@ let mapleader=","
 set wildignore=*.o,*.out "Ignorar ciertos ficheros a la hora de autocompletar
 set paste
 
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+	if !exists("*synstack")
+		return
+	endif
+	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 "Visual customization {{{1
 
 syntax enable
@@ -50,16 +63,6 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>| "Limpiar los highlights
 nnoremap <BS> <C-^>| "Edit alternate file
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>| "Remove espaces at the end of lines
 nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
-"Moving lines
-nnoremap <C-Up> ddkP
-nnoremap <C-Down> ddp
-vnoremap <C-Up> xkP`[V`]
-vnoremap <C-Down> xp`[V`]
-"Tabs
-nnoremap <C-S-tab> gt
-nnoremap <C-tab> gT
-nnoremap <C-t> :tabnew<CR>
-
 "Commands {{{1
 
 if has("autocmd")
@@ -69,8 +72,10 @@ autocmd FileType cpp setlocal keywordprg=cppman "Documentación C++ (K)
 
 "Searching and movement {{{1
 
-nnoremap H ^
-nnoremap L $
+"nnoremap H ^
+noremap H ^
+"nnoremap L $
+noremap L $
 
 "Situarse en centro despues de hacer una búsqueda
 nnoremap n nzz
@@ -80,7 +85,7 @@ nnoremap * *N| "Don't move on *
 "Windows {{{1
 
 "Save session
-nnoremap <leader>s :mksession<CR>
+nnoremap <leader>s :mksession!<CR>
 "Resize windows
 nnoremap <C-left> 5<C-w><
 nnoremap <C-right> 5<C-w>>
@@ -90,6 +95,23 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+"Moving lines
+nnoremap <C-Up> ddkP
+nnoremap <C-Down> ddp
+vnoremap <C-Up> xkP`[V`]
+vnoremap <C-Down> xp`[V`]
+
+augroup cursorline
+	autocmd!
+	autocmd WinEnter * exe winnr('$')>1 ? "set cursorline" : "set nocursorline"
+augroup END
+
+nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
+
+"Custom commands {{{1
+
+command! GoogleChromeA execute "!google-chrome > /dev/null 2>&1 &"
 
 "Plugins {{{1
 
