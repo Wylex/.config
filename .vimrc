@@ -17,10 +17,9 @@ set noexpandtab
 autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
 autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
+autocmd FileType markdown setlocal ts=3 sts=3 sw=3 et
 
 "Tabs
-nnoremap <C-S-tab> gt
-nnoremap <C-tab> gT
 nnoremap <C-t> :tabnew<CR>
 
 "Buffer options {{{1
@@ -59,7 +58,7 @@ set linebreak "No cortar palabras al cambiar de linea
 
 "Mappings {{{1
 
-nnoremap <silent> <leader><space> :nohlsearch<CR>| "Limpiar los highlights
+nnoremap <silent> <leader><space> <C-L>:nohlsearch<CR>| "Limpiar los highlights
 nnoremap <BS> <C-^>| "Edit alternate file
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>| "Remove espaces at the end of lines
 nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
@@ -71,6 +70,8 @@ endif
 autocmd FileType cpp setlocal keywordprg=cppman "Documentación C++ (K)
 
 "Searching and movement {{{1
+
+set noignorecase
 
 "nnoremap H ^
 noremap H ^
@@ -89,6 +90,8 @@ nnoremap <leader>s :mksession!<CR>
 "Resize windows
 nnoremap <C-left> 5<C-w><
 nnoremap <C-right> 5<C-w>>
+nnoremap <C-w>+ 5<C-w>+
+nnoremap <C-w>- 5<C-w>-
 
 "Select windows
 nnoremap <C-h> <C-w>h
@@ -112,9 +115,14 @@ nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
 "Custom commands {{{1
 
 command! GoogleChromeA execute "!google-chrome > /dev/null 2>&1 &"
+"Command line {{{1
+set history=200 "save last 200 commands executed
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 "Plugins {{{1
 
+"Surround
 "Indent Guides
 "Tabular
 "Gruvbox
