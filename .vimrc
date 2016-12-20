@@ -35,7 +35,7 @@ nnoremap <leader>z zMzvzz
 "Random stuff {{{1
 
 let mapleader=","
-set wildignore=*.o,*.out "Ignorar ciertos ficheros a la hora de autocompletar
+set wildignore=*.o,*.out,*.aux,*.log,*.dvi "Ignorar ciertos ficheros a la hora de autocompletar
 set paste
 
 " Show syntax highlighting groups for word under cursor
@@ -115,6 +115,7 @@ nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
 "Custom commands {{{1
 
 command! GoogleChromeA execute "!google-chrome > /dev/null 2>&1 &"
+command! Latex execute ":w | !pdflatex " . shellescape(expand('%'))
 "Command line {{{1
 set history=200 "save last 200 commands executed
 cnoremap <C-p> <Up>
