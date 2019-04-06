@@ -32,6 +32,11 @@ set foldmethod=marker
 nnoremap <space> za
 nnoremap <leader>z zMzvzz
 
+"Indentation {{{1
+set breakindent
+set breakindentopt=shift:2,min:40
+set showbreak=>>>
+
 "Random stuff {{{1
 
 let mapleader=","
