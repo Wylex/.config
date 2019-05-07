@@ -1,30 +1,39 @@
 "Configuración del terminal:
 "Modificar el delay de repetición de teclas
 "Mapear la tecla Bloq Mayus por la ESC
-"Font 'Ubuntu Mono derivative Powerline Regular' from: 'https://github.com/powerline/fonts.git'
+"Font 'Ubuntu Mono derivative Powerline Regular' from: 'https://github.com/powerline/fonts.git', inconsolata
 
 "Pathogen plugin manager {{{1
-execute pathogen#infect()
+	execute pathogen#infect()
 
-"Tabs options {{{1
+"Indentation {{{1
 
-set ignorecase
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 set noexpandtab
-"Configuración tabs según ficheros
-autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
-autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
-autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
-autocmd FileType markdown setlocal ts=3 sts=3 sw=3 et
+set softtabstop=4
+set tabstop=4 "Size of a tab
+set shiftwidth=4 "Size of a shift (>>)
 
-"Tabs
-nnoremap <C-t> :tabnew<CR>
+"File configurations
+if has("autocmd")
+	autocmd FileType html setlocal ts=3 sts=3 sw=3 noet
+	autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noet
+	autocmd FileType make setlocal ts=4 sts=4 sw=4 noet
+	autocmd FileType haskell setlocal ts=4 sts=4 sw=4 et
+	autocmd FileType markdown setlocal ts=3 sts=3 sw=3 et
+endif
+
+"Wrapping
+set breakindent
+set breakindentopt=shift:2,min:40
+set showbreak=>>>
 
 "Buffer options {{{1
 
-set hidden "Permitir cambiar buffer
+set hidden "Allow changing buffers with changes
+
+"Tabs {{{1
+
+nnoremap <C-t> :tabnew<CR>
 
 "Folding {{{1
 
@@ -32,16 +41,11 @@ set foldmethod=marker
 nnoremap <space> za
 nnoremap <leader>z zMzvzz
 
-"Indentation {{{1
-set breakindent
-set breakindentopt=shift:2,min:40
-set showbreak=>>>
-
 "Random stuff {{{1
 
 let mapleader=","
-set wildignore=*.o,*.out,*.aux,*.log,*.dvi "Ignorar ciertos ficheros a la hora de autocompletar
-set paste
+set wildignore=*.o,*.out,*.aux,*.log,*.dvi,*.log,*.aux,*.pdf,*.class "Ignorar ciertos ficheros a la hora de autocompletar
+"set paste
 
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
@@ -51,6 +55,7 @@ function! <SID>SynStack()
 	endif
 	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
 "Visual customization {{{1
 
 syntax enable
@@ -58,7 +63,11 @@ colorscheme gruvbox
 set background=dark
 set hlsearch
 set number
-set listchars=tab:▸\ ,eol:¬
+""set listchars=tab:▸\ ,eol:¬
+set listchars=tab:\|\ ,eol:¬
+if has("autocmd")
+	autocmd FileType html setlocal list
+endif
 set linebreak "No cortar palabras al cambiar de linea
 
 "Mappings {{{1
@@ -67,6 +76,8 @@ nnoremap <silent> <leader><space> <C-L>:nohlsearch<CR>| "Limpiar los highlights
 nnoremap <BS> <C-^>| "Edit alternate file
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>| "Remove espaces at the end of lines
 nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
+""nmap <leader>ig :set list lcs=tab:\\|\ <CR>|
+
 "Commands {{{1
 
 if has("autocmd")
@@ -121,9 +132,11 @@ nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
 
 command! GoogleChromeA execute "!google-chrome > /dev/null 2>&1 &"
 command! Latex execute ":w | !pdflatex " . shellescape(expand('%'))
+
 "Command line {{{1
+
 set history=200 "save last 200 commands executed
-cnoremap <C-p> <Up>
+cnoremap <C-p> <Up> "Allows filtering history
 cnoremap <C-n> <Down>
 
 "Plugins {{{1
@@ -136,6 +149,7 @@ cnoremap <C-n> <Down>
 nnoremap <F4> :GundoToggle<CR>
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore = ['\.class$']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "Cerrar vim si solo queda el arbol
 "Vim-Airline
 set laststatus=2
