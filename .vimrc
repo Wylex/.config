@@ -59,6 +59,7 @@ endfunc
 "Visual customization {{{1
 
 syntax enable
+let g:gruvbox_contrast_light='hard'
 colorscheme gruvbox
 set background=dark
 set hlsearch
@@ -121,10 +122,10 @@ nnoremap <C-Down> ddp
 vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
-augroup cursorline
-	autocmd!
-	autocmd WinEnter * exe winnr('$')>1 ? "set cursorline" : "set nocursorline"
-augroup END
+"augroup cursorline
+	"autocmd!
+	"autocmd WinEnter * exe winnr('$')>1 ? "set cursorline" : "set nocursorline"
+"augroup END
 
 nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
 
@@ -132,6 +133,8 @@ nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
 
 command! GoogleChromeA execute "!google-chrome > /dev/null 2>&1 &"
 command! Latex execute ":w | !pdflatex " . shellescape(expand('%'))
+command! Writemode set background=light | Goyo 90 | nnoremap j gj | nnoremap k gk
+command! Codemode set background=dark | Goyo! | nnoremap j j | nnoremap k k
 
 "Command line {{{1
 
@@ -163,7 +166,3 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
