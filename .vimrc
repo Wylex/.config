@@ -59,8 +59,9 @@ endfunc
 "Visual customization {{{1
 
 syntax enable
+set termguicolors
 let g:gruvbox_contrast_light='hard'
-colorscheme gruvbox
+colorscheme gruvbox-material-soft "+ airline theme
 set background=dark
 set hlsearch
 set number
@@ -133,8 +134,8 @@ nnoremap <leader>h :vs %:t:r.h<CR>10<C-w><
 
 command! GoogleChromeA execute "!google-chrome > /dev/null 2>&1 &"
 command! Latex execute ":w | !pdflatex " . shellescape(expand('%'))
-command! Writemode set background=light | Goyo 90 | nnoremap j gj | nnoremap k gk
-command! Codemode set background=dark | Goyo! | nnoremap j j | nnoremap k k
+command! Writemode Goyo| nnoremap j gj| nnoremap k gk|set nobreakindent|set sbr=""
+command! Codemode Goyo!| nnoremap j j| nnoremap k k|set breakindent| set sbr=>>>
 
 "Command line {{{1
 
@@ -156,6 +157,7 @@ let NERDTreeIgnore = ['\.class$']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "Cerrar vim si solo queda el arbol
 "Vim-Airline
 set laststatus=2
+let g:airline_theme = 'gruvbox_material'
 let g:airline_section_a = airline#section#create(['mode', '', ''])
 let g:airline_section_z = airline#section#create(['%p%%', ' c%c', ' BN: %{bufnr("%")}'])
 let g:airline_section_y = airline#section#create(['%a'])
