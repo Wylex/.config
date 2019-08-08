@@ -4,7 +4,7 @@
 "Font 'Ubuntu Mono derivative Powerline Regular' from: 'https://github.com/powerline/fonts.git', inconsolata
 
 "Pathogen plugin manager {{{1
-	execute pathogen#infect()
+execute pathogen#infect()
 
 "Indentation {{{1
 
@@ -82,9 +82,9 @@ nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
 
 "Commands {{{1
 
-if has("autocmd")
-	autocmd bufwritepost .vimrc source $MYVIMRC
-endif
+"if has("autocmd")
+	"autocmd bufwritepost .vimrc source $MYVIMRC
+"endif
 autocmd FileType cpp setlocal keywordprg=cppman "Documentación C++ (K)
 
 "Searching and movement {{{1
@@ -158,6 +158,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "Vim-Airline
 set laststatus=2
 let g:airline_theme = 'gruvbox_material'
+let g:airline#extensions#tabline#enabled = 1 "Display all buffers
 let g:airline_section_a = airline#section#create(['mode', '', ''])
 let g:airline_section_z = airline#section#create(['%p%%', ' c%c', ' BN: %{bufnr("%")}'])
 let g:airline_section_y = airline#section#create(['%a'])
@@ -175,21 +176,21 @@ endif
 
 "Goyo
 function! s:goyo_enter()
-  let b:quitting = 0
-  let b:quitting_bang = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+	let b:quitting = 0
+	let b:quitting_bang = 0
+	autocmd QuitPre <buffer> let b:quitting = 1
+	cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
 endfunction
 
 function! s:goyo_leave()
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    if b:quitting_bang
-      qa!
-    else
-      qa
-    endif
-  endif
+	" Quit Vim if this is the only remaining buffer
+	if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+		if b:quitting_bang
+			qa!
+		else
+			qa
+		endif
+	endif
 endfunction
 
 autocmd! User GoyoEnter call <SID>goyo_enter()
