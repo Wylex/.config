@@ -43,6 +43,7 @@ nnoremap <leader>z zMzvzz
 
 "Random stuff {{{1
 
+set wildmenu
 let mapleader=","
 set wildignore=*.o,*.out,*.aux,*.log,*.dvi,*.log,*.aux,*.pdf,*.class "Ignorar ciertos ficheros a la hora de autocompletar
 "set paste
@@ -71,6 +72,7 @@ if has("autocmd")
 	autocmd FileType html setlocal list
 endif
 set linebreak "No cortar palabras al cambiar de linea
+au BufReadPost *.hbs set syntax=html "Change syntax coloring to html
 
 "Mappings {{{1
 
@@ -80,6 +82,9 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>| "Remove espac
 nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
 ""nmap <leader>ig :set list lcs=tab:\\|\ <CR>|
 
+"Templates {{{1
+
+autocmd BufNewFile *.tex r ~/.vim/templates/latexSkeleton.tex
 "Commands {{{1
 
 "if has("autocmd")
@@ -87,6 +92,9 @@ nmap <leader>v :tabedit $MYVIMRC<CR>| "Open .vimrc
 "endif
 autocmd FileType cpp setlocal keywordprg=cppman "Documentación C++ (K)
 
+"File search{{{1
+
+set path+=**
 "Searching and movement {{{1
 
 set noignorecase
@@ -145,6 +153,7 @@ cnoremap <C-n> <Down>
 
 "Plugins {{{1
 
+"vim-jsx-pretty
 "Surround
 "Indent Guides
 "Tabular
@@ -159,9 +168,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 set laststatus=2
 let g:airline_theme = 'gruvbox_material'
 let g:airline#extensions#tabline#enabled = 1 "Display all buffers
-let g:airline_section_a = airline#section#create(['mode', '', ''])
+"let g:airline_section_a = airline#section#create(['mode', '', ''])
+"let g:airline_section_b = '%-0.10{getcwd()}'
+"let g:airline_section_y = airline#section#create(['%a'])
 let g:airline_section_z = airline#section#create(['%p%%', ' c%c', ' BN: %{bufnr("%")}'])
-let g:airline_section_y = airline#section#create(['%a'])
 let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
@@ -173,6 +183,8 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
+
+let g:rainbow_active=0
 
 "Goyo
 function! s:goyo_enter()
