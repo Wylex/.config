@@ -68,11 +68,12 @@ set hlsearch
 set number
 ""set listchars=tab:▸\ ,eol:¬
 set listchars=tab:\|\ ,eol:¬
-if has("autocmd")
-	autocmd FileType html setlocal list
-endif
+"if has("autocmd")
+	"autocmd FileType html setlocal list
+"endif
 set linebreak "No cortar palabras al cambiar de linea
-au BufReadPost *.hbs set syntax=html "Change syntax coloring to html
+"au BufReadPost *.hbs set syntax=html "Change syntax coloring to html
+au BufNewFile,BufRead *.ejs set filetype=html
 
 "Mappings {{{1
 
@@ -108,6 +109,18 @@ noremap L $
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *N| "Don't move on *
+
+" Search for selected text *, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 "Windows {{{1
 
